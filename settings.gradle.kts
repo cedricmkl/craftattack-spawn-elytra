@@ -1,2 +1,2 @@
-rootProject.name = "craftattack"
+rootProject.name = "craftattackspawnelytra"
 
