@@ -8,7 +8,7 @@ public class CraftAttackSpawnBoost extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        getServer().getPluginManager().registerEvents(new SpawnBoostListener(this), this);
+        getServer().getPluginManager().registerEvents(SpawnBoostListener.create(this), this);
     }
 
 }

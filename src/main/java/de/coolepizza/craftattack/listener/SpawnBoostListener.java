@@ -20,6 +20,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SpawnBoostListener extends BukkitRunnable implements Listener {
 
@@ -31,12 +32,27 @@ public class SpawnBoostListener extends BukkitRunnable implements Listener {
     private final List<Player> flying = new ArrayList<>();
     private final List<Player> boosted = new ArrayList<>();
 
-    public SpawnBoostListener(Plugin plugin) {
+    public static SpawnBoostListener create(Plugin plugin) {
+        var config = plugin.getConfig();
+        if (!config.contains("multiplyValue") || !config.contains("spawnRadius") || !config.contains("boostEnabled") || !config.contains("world")) {
+            plugin.saveResource("config.yml", true);
+            plugin.reloadConfig();
+        }
+        return new SpawnBoostListener(
+                plugin,
+                config.getInt("multiplyValue"),
+                config.getInt("spawnRadius"),
+                config.getBoolean("boostEnabled"),
+                Objects.requireNonNull(Bukkit.getWorld(config.getString("world"))
+                        , "Invalid world " + config.getString("world")));
+    }
+
+    private SpawnBoostListener(Plugin plugin, int multiplyValue, int spawnRadius, boolean boostEnabled, World world) {
         this.plugin = plugin;
-        this.multiplyValue = plugin.getConfig().getInt("multiplyValue");
-        this.spawnRadius = plugin.getConfig().getInt("spawnRadius");
-        this.boostEnabled = plugin.getConfig().getBoolean("boostEnabled");
-        this.world = Bukkit.getWorld(plugin.getConfig().getString("world"));
+        this.multiplyValue = multiplyValue;
+        this.spawnRadius = spawnRadius;
+        this.boostEnabled = boostEnabled;
+        this.world = world;
 
         this.runTaskTimer(this.plugin, 0, 3);
     }
@@ -44,7 +60,7 @@ public class SpawnBoostListener extends BukkitRunnable implements Listener {
 
     @Override
     public void run() {
-       world.getPlayers().forEach(player -> {
+        world.getPlayers().forEach(player -> {
             if (player.getGameMode() != GameMode.SURVIVAL) return;
             player.setAllowFlight(isInSpawnRadius(player));
             if (flying.contains(player) && !player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType().isAir()) {
