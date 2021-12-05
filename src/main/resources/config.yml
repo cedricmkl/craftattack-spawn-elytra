@@ -1,0 +1,4 @@
+spawnRadius: 50
+multiplyValue: 5
+boostEnabled: true
+world: world
