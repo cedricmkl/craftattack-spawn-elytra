@@ -31,10 +31,11 @@ public class SpawnBoostListener extends BukkitRunnable implements Listener {
     private final World world;
     private final List<Player> flying = new ArrayList<>();
     private final List<Player> boosted = new ArrayList<>();
+    private final String message;
 
     public static SpawnBoostListener create(Plugin plugin) {
         var config = plugin.getConfig();
-        if (!config.contains("multiplyValue") || !config.contains("spawnRadius") || !config.contains("boostEnabled") || !config.contains("world")) {
+        if (!config.contains("multiplyValue") || !config.contains("spawnRadius") || !config.contains("boostEnabled") || !config.contains("world") ||  !config.contains("message")) {
             plugin.saveResource("config.yml", true);
             plugin.reloadConfig();
         }
@@ -44,15 +45,17 @@ public class SpawnBoostListener extends BukkitRunnable implements Listener {
                 config.getInt("spawnRadius"),
                 config.getBoolean("boostEnabled"),
                 Objects.requireNonNull(Bukkit.getWorld(config.getString("world"))
-                        , "Invalid world " + config.getString("world")));
+                        , "Invalid world " + config.getString("world")),
+                config.getString("message"));
     }
 
-    private SpawnBoostListener(Plugin plugin, int multiplyValue, int spawnRadius, boolean boostEnabled, World world) {
+    private SpawnBoostListener(Plugin plugin, int multiplyValue, int spawnRadius, boolean boostEnabled, World world, String message) {
         this.plugin = plugin;
         this.multiplyValue = multiplyValue;
         this.spawnRadius = spawnRadius;
         this.boostEnabled = boostEnabled;
         this.world = world;
+        this.message = message;
 
         this.runTaskTimer(this.plugin, 0, 3);
     }
@@ -82,10 +85,11 @@ public class SpawnBoostListener extends BukkitRunnable implements Listener {
         event.setCancelled(true);
         event.getPlayer().setGliding(true);
         if (!boostEnabled) return;
+        String[] messageParts = message.split("%key%");
         event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                new ComponentBuilder("Drücke ")
+                new ComponentBuilder(messageParts[0])
                         .append(new KeybindComponent("key.swapOffhand"))
-                        .append(" um dich zu boosten")
+                        .append(messageParts[1])
                         .create());
         flying.add(event.getPlayer());
     }
