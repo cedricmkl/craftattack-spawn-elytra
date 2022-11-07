@@ -84,6 +84,7 @@ public class SpawnBoostListener extends BukkitRunnable implements Listener {
         if (!isInSpawnRadius(event.getPlayer())) return;
         event.setCancelled(true);
         event.getPlayer().setGliding(true);
+        flying.add(event.getPlayer());
         if (!boostEnabled) return;
         String[] messageParts = message.split("%key%");
         event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR,
@@ -91,7 +92,6 @@ public class SpawnBoostListener extends BukkitRunnable implements Listener {
                         .append(new KeybindComponent("key.swapOffhand"))
                         .append(messageParts[1])
                         .create());
-        flying.add(event.getPlayer());
     }
 
     @EventHandler
