@@ -80,7 +80,7 @@ public class SpawnBoostListener extends BukkitRunnable implements Listener {
 
     @EventHandler
     public void onDoubleJump(PlayerToggleFlightEvent event) {
-        if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) return;
+        if (event.getPlayer().getGameMode() != GameMode.SURVIVAL && event.getPlayer().getGameMode() != GameMode.ADVENTURE) return;
         if (!isInSpawnRadius(event.getPlayer())) return;
         event.setCancelled(true);
         event.getPlayer().setGliding(true);
