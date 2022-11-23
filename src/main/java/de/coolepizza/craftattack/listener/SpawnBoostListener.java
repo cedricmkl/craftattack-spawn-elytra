@@ -64,7 +64,7 @@ public class SpawnBoostListener extends BukkitRunnable implements Listener {
     @Override
     public void run() {
         world.getPlayers().forEach(player -> {
-            if (player.getGameMode() != GameMode.SURVIVAL) return;
+            if (player.getGameMode() != GameMode.SURVIVAL && player.getGameMode() != GameMode.ADVENTURE) return;
             player.setAllowFlight(isInSpawnRadius(player));
             if (flying.contains(player) && !player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType().isAir()) {
                 player.setAllowFlight(false);
