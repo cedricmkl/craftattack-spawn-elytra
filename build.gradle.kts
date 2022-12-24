@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "de.coolepizza"
-version = "1.2"
+version = "1.2.1"
 
 repositories {
     mavenCentral()
