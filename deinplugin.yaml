@@ -1,0 +1,25 @@
+specVersion: 1
+type: plugin
+name: Spawn Elytra
+authors:
+  - CoolePizza
+supportedPlatforms:
+  - spigot
+supportedGameVersions: ^1.17
+category: misc
+introduction: Ein einfaches Plugin, das das `/helloworld`-Kommando hinzufügt
+description: |
+  Das Plugin ermöglicht durch einen Doppelsprung in einem Spawn-Bereich das Nutzen einer Temporären Elytra. 
+  Mit der Taste um die Hände zu wechseln kann man einen Boost verwenden.
+installation:
+  de: |
+    - Herunterladen der Plugin-Datei
+    - Ablegen der Datei im Plugins-Ordner
+    - Server neustarten
+    - In der Datei config.yml einstellen:
+        - spawnRadius: Den Radius um den Worldspawn, wo die Elytra aktiviert werden soll
+        - multiplyValue: Stärke des Boostes
+        - boostEnabled: Ob der Boost eingeschaltet sein soll
+        - world: Die Welt, in der man die Elytra aktivieren kann
+videoSources:
+  - https://www.youtube.com/watch?v=S9f_mFiYT50
