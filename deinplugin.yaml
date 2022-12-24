@@ -2,7 +2,7 @@ specVersion: 1
 type: plugin
 name: Spawn Elytra
 authors:
-  - CoolePizza
+  - cedricmkl
 supportedPlatforms:
   - spigot
 supportedGameVersions: ^1.17
