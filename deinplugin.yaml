@@ -7,9 +7,9 @@ supportedPlatforms:
   - spigot
 supportedGameVersions: ^1.17
 category: misc
-introduction: Ein einfaches Plugin, das das `/helloworld`-Kommando hinzufügt
+introduction: Ermöglicht das Nutzen einer temporären Elytra
 description: |
-  Das Plugin ermöglicht durch einen Doppelsprung in einem Spawn-Bereich das Nutzen einer Temporären Elytra. 
+  Das Plugin ermöglicht durch einen Doppelsprung in einem Spawn-Bereich das Nutzen einer temporären Elytra. 
   Mit der Taste um die Hände zu wechseln kann man einen Boost verwenden.
 installation:
   de: |
